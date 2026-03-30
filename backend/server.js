@@ -13,13 +13,15 @@ import { clerkMiddleware } from "@clerk/express";
 
 import doctorRouter from './routes/doctorRouter.js';
 import serviceRouter from './routes/serviceRouter.js';
+import appointmentRouter from './routes/appointmentRouter.js';
 
 
 
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
 
 app.use("/api/doctors", doctorRouter);
-app.use("/api/services",serviceRouter)
+app.use("/api/services",serviceRouter);
+app.use("/api/appointments",appointmentRouter);
 
 app.get('/', (req, res) => {
     res.send('API Working ');
