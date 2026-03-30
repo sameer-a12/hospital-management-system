@@ -13,25 +13,25 @@ import {
   getServiceAppointmentsByPatient,
 } from "../controllers/serviceAppointmentController.js";
 
-const router = express.Router();
+const serviceAppointmentRouter = express.Router();
 
 
-router.get("/", getServiceAppointments);
+serviceAppointmentRouter.get("/", getServiceAppointments);
 
-router.get("/stats/summary", getServiceAppointmentStats);
+serviceAppointmentRouter.get("/stats/summary", getServiceAppointmentStats);
 
-router.post("/", clerkMiddleware(), requireAuth(), createServiceAppointment);
+serviceAppointmentRouter.post("/", clerkMiddleware(), requireAuth(), createServiceAppointment);
 
 
-router.get(
+serviceAppointmentRouter.get(
   "/me",
   clerkMiddleware(),
   requireAuth(),
   getServiceAppointmentsByPatient
 );
 
-router.get("/:id", getServiceAppointmentById);
-router.put("/:id", updateServiceAppointment);
-router.post("/:id/cancel", cancelServiceAppointment);
+serviceAppointmentRouter.get("/:id", getServiceAppointmentById);
+serviceAppointmentRouter.put("/:id", updateServiceAppointment);
+serviceAppointmentRouter.post("/:id/cancel", cancelServiceAppointment);
 
 export default serviceAppointmentRouter;
