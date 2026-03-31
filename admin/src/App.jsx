@@ -4,21 +4,23 @@ import AnimatedNavbar from "./components/Navbar";
 import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import Hero from "./pages/Hero";
+import DashboardPage from "./components/DashboardPage";
+
 
 function RequireAuth({ children }) {
   const { isLoaded, isSignedIn } = useUser();
 
-  if (!isLoaded) return null; 
+  if (!isLoaded) return null;
   if (!isSignedIn)
     return (
       <div className="min-h-screen font-mono flex items-center justify-center bg-linear-to-b from-emerald-50 via-green-50 to-emerald-100 px-4">
         <div className="text-center">
-          
+
           <p className="text-emerald-800 font-semibold text-lg sm:text-2xl mb-4 animate-fade-in">
             Please sign in to view this page
           </p>
 
-          
+
           <div className="flex justify-center">
             <Link
               to="/"
@@ -38,11 +40,22 @@ function RequireAuth({ children }) {
 
 function App() {
   return (
-    <div className="h-screen bg-gradient-to-b from-emerald-50 via-green-50 to-emerald-100 overflow-hidden">
+    <div className="h-screen bg-gradient-to-b from-emerald-50 via-green-50 to-emerald-100 ">
       <AnimatedNavbar />
 
       <Routes>
         <Route path="/" element={<Hero />} />
+
+        <Route
+          path="/h"
+          element={
+            <RequireAuth>
+              <DashboardPage />
+
+            </RequireAuth>
+          }
+        />
+        
       </Routes>
     </div>
   );
