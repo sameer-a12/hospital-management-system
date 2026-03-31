@@ -1,13 +1,16 @@
-import React from 'react'
+import { Routes, Route } from "react-router-dom";
+import AnimatedNavbar from "./components/Navbar";
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">
-        Hello world!
-      </h1>
-    </div>
-  )
+    <>
+      <AnimatedNavbar />
+
+      <Routes>
+        
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;
