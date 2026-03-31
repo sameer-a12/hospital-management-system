@@ -5,6 +5,7 @@ import { useUser } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 import Hero from "./pages/Hero";
 import DashboardPage from "./components/DashboardPage";
+import AddPage from "./components/AddPage"
 
 
 function RequireAuth({ children }) {
@@ -55,7 +56,14 @@ function App() {
             </RequireAuth>
           }
         />
-        
+        <Route
+          path="/add"
+          element={
+            <RequireAuth>
+              <AddPage />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </div>
   );
