@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import Hero from "./pages/Hero";
 import DashboardPage from "./components/DashboardPage";
 import AddPage from "./components/AddPage"
-
+import ListPage from "./components/ListPage"
 
 function RequireAuth({ children }) {
   const { isLoaded, isSignedIn } = useUser();
@@ -64,6 +64,14 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+        path="/list"
+        element={
+          <RequireAuth>
+            <ListPage/>
+          </RequireAuth>
+        }
+      />
       </Routes>
     </div>
   );
