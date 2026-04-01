@@ -45,7 +45,7 @@ app.use(express.urlencoded({ limit: "20mb", extended: true }));
 app.use("/api/doctors", doctorRouter);
 app.use("/api/services",serviceRouter);
 app.use("/api/appointments",appointmentRouter);
-app.use("api/services-appointments",serviceAppointmentRouter);
+app.use("/api/service-appointments",serviceAppointmentRouter);
 
 app.get('/', (req, res) => {
     res.send('API Working ');
