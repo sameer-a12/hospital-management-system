@@ -71,7 +71,12 @@ export const createServiceAppointment = async (req, res) => {
       return res.status(400).json({ success: false, message: "Missing required fields" });
     }
 
-    const numericAmount = safeNumber(fees ?? 0);
+    const service = await Service.findById(serviceId);
+if (!service) {
+  return res.status(404).json({ success: false, message: "Service not found" });
+}
+
+    const numericAmount = safeNumber(fees ?? 0) ?? 0;
 
     const parsed = parseTimeString(time);
     if (!parsed) {
@@ -80,6 +85,7 @@ export const createServiceAppointment = async (req, res) => {
 
     const base = {
       serviceId,
+      serviceName: service.name,
       patientName,
       mobile,
       date,
