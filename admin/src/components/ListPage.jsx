@@ -1,4 +1,3 @@
-// src/components/AnimatedDoctorList.responsive.jsx
 import React, { useMemo, useState, useEffect } from "react";
 import {
   Star,
@@ -35,22 +34,15 @@ function formatDateISO(iso) {
   return `${day} ${month} ${y}`;
 }
 
-/* ---------- New helpers for normalized + sorted schedule keys ---------- */
 
-/**
- * Normalize any date-like string / Date to YYYY-MM-DD or return null if invalid.
- */
 function normalizeToDateString(d) {
   if (!d) return null;
   const dt = new Date(d);
   if (Number.isNaN(dt.getTime())) return null;
-  return dt.toISOString().split("T")[0]; // YYYY-MM-DD
+  return dt.toISOString().split("T")[0]; 
 }
 
-/**
- * Build a normalized schedule map: { 'YYYY-MM-DD': [slot, slot2, ...], ... }
- * - preserves array slots or converts non-arrays to []
- */
+
 function buildScheduleMap(schedule) {
   const map = {};
   if (!schedule || typeof schedule !== "object") return map;
@@ -61,13 +53,9 @@ function buildScheduleMap(schedule) {
   return map;
 }
 
-/**
- * Given a schedule-like object (or array of date strings), return date keys ordered:
- * - past dates first, nearest past → older past
- * - then today & future, earliest → latest
- */
+
 function getSortedScheduleDates(scheduleLike) {
-  // get keys from either a map object or array
+  
   let keys = [];
   if (Array.isArray(scheduleLike)) {
     keys = scheduleLike.map(normalizeToDateString).filter(Boolean);
@@ -75,7 +63,7 @@ function getSortedScheduleDates(scheduleLike) {
     keys = Object.keys(scheduleLike).map(normalizeToDateString).filter(Boolean);
   }
 
-  // unique
+  
   keys = Array.from(new Set(keys));
 
   const parsed = keys.map((ds) => ({ ds, date: new Date(ds) }));
@@ -87,16 +75,16 @@ function getSortedScheduleDates(scheduleLike) {
 
   const past = parsed
     .filter((p) => dateVal(p.date) < todayVal)
-    .sort((a, b) => dateVal(b.date) - dateVal(a.date)); // nearest past first
+    .sort((a, b) => dateVal(b.date) - dateVal(a.date)); 
 
   const future = parsed
     .filter((p) => dateVal(p.date) >= todayVal)
-    .sort((a, b) => dateVal(a.date) - dateVal(b.date)); // earliest first (includes today)
+    .sort((a, b) => dateVal(a.date) - dateVal(b.date)); 
 
   return [...past, ...future].map((p) => p.ds);
 }
 
-/* --------------------------------------------------------------------- */
+
 
 export default function AnimatedDoctorListResponsive({ apiBase }) {
   const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
@@ -108,7 +96,7 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
   const [filterStatus, setFilterStatus] = useState("all");
   const [loading, setLoading] = useState(false);
 
-  // track if we are on a mobile (tailwind "sm" breakpoint is 640px)
+  
   const [isMobileScreen, setIsMobileScreen] = useState(false);
   useEffect(() => {
     function onResize() {
@@ -120,7 +108,6 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // fetch doctors from backend (robust to different response shapes)
   async function fetchDoctors() {
     setLoading(true);
     try {
@@ -128,14 +115,14 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
       const body = await res.json().catch(() => null);
 
       if (res.ok && body && body.success) {
-        // accept either body.data (new) or body.doctors (older)
+       
         const list = Array.isArray(body.data)
           ? body.data
           : Array.isArray(body.doctors)
           ? body.doctors
           : [];
 
-        // normalize schedule to plain object and ensure keys normalized
+        
         const normalized = list.map((d) => {
           const scheduleMap = buildScheduleMap(d.schedule || {});
           return {
@@ -158,7 +145,7 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
 
   useEffect(() => {
     fetchDoctors();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
 
   const filtered = useMemo(() => {
@@ -191,7 +178,7 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
     setExpanded((prev) => (prev === id ? null : id));
   }
 
-  // delete doctor (calls backend)
+  
   async function removeDoctor(id) {
     const doc = doctors.find((d) => (d._id || d.id) === id);
     if (!doc) return;
@@ -207,7 +194,7 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
         alert(body?.message || "Failed to delete");
         return;
       }
-      // remove locally
+      
       setDoctors((prev) => prev.filter((p) => (p._id || p.id) !== id));
       if (expanded === id) setExpanded(null);
     } catch (err) {
@@ -305,7 +292,7 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
           const isOpen = expanded === id;
           const isAvailable = doc.availability === "Available";
 
-          // build normalized schedule map and sorted date keys
+         
           const scheduleMap = buildScheduleMap(doc.schedule || {});
           const sortedDates = getSortedScheduleDates(scheduleMap);
 

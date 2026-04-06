@@ -6,7 +6,12 @@ import { Link } from "react-router-dom";
 import Hero from "./pages/Hero";
 import DashboardPage from "./components/DashboardPage";
 import AddPage from "./components/AddPage"
-import ListPage from "./components/ListPage"
+import List from "./pages/List"
+import Appointments from "./pages/Appointments";
+import SerDashboard from "./pages/SerDashboard";
+import AddSer from "./pages/AddSer";
+import ListService from "./pages/ListService";
+import ServiceAppointments from "./pages/ServiceAppointments";
 
 function RequireAuth({ children }) {
   const { isLoaded, isSignedIn } = useUser();
@@ -68,10 +73,55 @@ function App() {
         path="/list"
         element={
           <RequireAuth>
-            <ListPage/>
+            <List/>
           </RequireAuth>
         }
       />
+
+      <Route
+        path="/appointments"
+        element={
+          <RequireAuth>
+            <Appointments/>
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/service-dashboard"
+        element={
+          <RequireAuth>
+            <SerDashboard/>
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/add-service"
+        element={
+          <RequireAuth>
+            <AddSer/>
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/list-service"
+        element={
+          <RequireAuth>
+            <ListService/>
+          </RequireAuth>
+        }
+      />
+
+      <Route
+        path="/service-appointments"
+        element={
+          <RequireAuth>
+            <ServiceAppointments/>
+          </RequireAuth>
+        }
+      />
+
       </Routes>
     </div>
   );

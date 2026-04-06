@@ -320,7 +320,6 @@ function sortSlotsForDisplay(slots = []) {
       id: latest._id || latest.id,
       name: latest.name || "",
       about: latest.about || "",
-      // instructions (one per line)
       instructionsText: (
         latest.instructions ||
         latest.preInstructions ||
