@@ -1,6 +1,7 @@
 
 import express from "express";
 import multer from "multer";
+import adminAuth from "../middlewares/adminAuth.js";
 import {
   createService,
   getServices,
@@ -18,12 +19,26 @@ serviceRouter.get("/", getServices);
 serviceRouter.get("/:id", getServiceById);
 
 
-serviceRouter.post("/", upload.single("image"), createService);
+serviceRouter.post(
+  "/",
+  adminAuth,
+  upload.single("image"),
+  createService
+);
 
 
-serviceRouter.put("/:id", upload.single("image"), updateService);
+serviceRouter.put(
+  "/:id",
+  adminAuth,
+  upload.single("image"),
+  updateService
+);
 
 
-serviceRouter.delete("/:id", deleteService);
+serviceRouter.delete(
+  "/:id",
+  adminAuth,
+  deleteService
+);
 
 export default serviceRouter;

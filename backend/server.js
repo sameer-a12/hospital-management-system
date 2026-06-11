@@ -41,6 +41,7 @@ import serviceAppointmentRouter from './routes/serviceAppointmentRouter.js';
 
 
 app.use(express.urlencoded({ limit: "20mb", extended: true }));
+app.use(clerkMiddleware());
 
 app.use("/api/doctors", doctorRouter);
 app.use("/api/services",serviceRouter);

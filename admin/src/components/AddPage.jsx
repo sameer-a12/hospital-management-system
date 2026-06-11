@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useAuth } from "@clerk/clerk-react";
 import {
   CheckCircle,
   XCircle,
@@ -47,6 +48,8 @@ function formatDateISO(iso) {
 export default function DoctorDetailPage() {
   const [doctorList, setDoctorList] = useState([]);
   const fileInputRef = useRef(null);
+
+  const { getToken } = useAuth();
 
   const [form, setForm] = useState({
     name: "",
@@ -250,10 +253,15 @@ export default function DoctorDetailPage() {
 
       const API_BASE = import.meta.env.VITE_API_BASE;
 
-      const res = await fetch(`${API_BASE}/doctors`, {
-        method: "POST",
-        body: fd,
-      });
+      const token = await getToken();
+
+const res = await fetch(`${API_BASE}/api/doctors`, {
+  method: "POST",
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+  body: fd,
+});
 
       const data = await res.json().catch(() => null);
 

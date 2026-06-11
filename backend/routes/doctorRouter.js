@@ -1,6 +1,7 @@
 
 import express from "express";
 import multer from "multer";
+import adminAuth from "../middlewares/adminAuth.js";
 
 import {
   createDoctor,
@@ -22,7 +23,13 @@ const doctorRouter = express.Router();
 doctorRouter.get("/", getDoctors);
 doctorRouter.post("/login", doctorLogin);
 doctorRouter.get("/:id", getDoctorById);
-doctorRouter.post("/", upload.single("image"), createDoctor);
+
+doctorRouter.post(
+  "/",
+  adminAuth,
+  upload.single("image"),
+  createDoctor
+);
 
 doctorRouter.put(
   "/:id",
@@ -35,6 +42,10 @@ doctorRouter.post(
   doctorAuth,
   toggleAvailability
 );
-doctorRouter.delete("/:id", deleteDoctor);
+doctorRouter.delete(
+  "/:id",
+  adminAuth,
+  deleteDoctor
+);
 
 export default doctorRouter;

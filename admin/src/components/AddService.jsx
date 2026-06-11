@@ -11,10 +11,12 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { addServiceStyles } from "../assets/dummyStyles.js";
+import { useAuth } from "@clerk/clerk-react";
 
 
 export default function AddService({ apiBase, serviceId }) {
   const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const { getToken } = useAuth();
 
   const fileRef = useRef(null);
   const [imagePreview, setImagePreview] = useState(null); 
@@ -297,7 +299,17 @@ export default function AddService({ apiBase, serviceId }) {
         : `${API_BASE}/api/services`;
       const method = serviceId ? "PUT" : "POST";
 
-      const res = await fetch(url, { method, body: fd });
+     const token = await getToken();
+
+
+
+const res = await fetch(url, {
+  method,
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+  body: fd,
+});
       const data = await res.json().catch(() => null);
 
       if (!res.ok) {
