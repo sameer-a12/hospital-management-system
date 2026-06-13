@@ -88,7 +88,7 @@ function getSortedScheduleDates(scheduleLike) {
 
 
 export default function AnimatedDoctorListResponsive({ apiBase }) {
-  const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const API_BASE = "https://medicare-backend-tlw3.onrender.com";
   const { getToken } = useAuth();
 
   const [doctors, setDoctors] = useState([]);

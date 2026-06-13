@@ -106,7 +106,7 @@ const ServiceCard = ({ service }) => {
 };
 
 export default function ServicePage({ apiBase, previewCount = 9999 }) {
-  const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const API_BASE = "https://medicare-backend-tlw3.onrender.com";
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

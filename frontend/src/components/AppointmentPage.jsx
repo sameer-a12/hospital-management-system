@@ -18,7 +18,7 @@ import {
   iconSize,
 } from "../assets/dummyStyles";
 
-const API_BASE = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE;
+const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 const API = axios.create({ baseURL: API_BASE });
 
 function pad(n) {

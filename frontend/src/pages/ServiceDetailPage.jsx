@@ -12,7 +12,7 @@ import { useAuth } from "@clerk/react";
 import toast, { Toaster } from "react-hot-toast";
 import { serviceDetailStyles, iconSize } from "../assets/dummyStyles";
 
-const DEFAULT_HOST = import.meta.env.VITE_API_BASE.replace(/\/$/, "");
+const DEFAULT_HOST = "https://medicare-backend-tlw3.onrender.com".replace(/\/$/, "");
 
 export default function ServiceDetail() {
   const { id } = useParams();

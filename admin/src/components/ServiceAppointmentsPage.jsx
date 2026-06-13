@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import { serviceAppointmentsStyles } from "../assets/dummyStyles.js";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 
 function formatTwo(n) {
   return String(n).padStart(2, "0");

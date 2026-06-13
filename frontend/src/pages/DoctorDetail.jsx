@@ -21,7 +21,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuth, useUser } from "@clerk/react";
 import { doctorDetailStyles } from "../assets/dummyStyles";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 
 function getScheduleDates(schedule) {
   if (!schedule) return [];

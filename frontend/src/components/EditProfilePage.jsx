@@ -57,7 +57,7 @@ function dedupeAndSortSchedule(schedule = {}) {
 export default function EditProfilePage({ apiBase }) {
   const { id } = useParams();
   const navigate = useNavigate();
-  const API_BASE = import.meta.env.VITE_API_BASE + "/api/doctors";
+  const API_BASE = "https://medicare-backend-tlw3.onrender.com" + "/api/doctors";
 
   const [doc, setDoc] = useState(null);
   const [editing, setEditing] = useState(false);

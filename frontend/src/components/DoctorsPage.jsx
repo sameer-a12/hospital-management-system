@@ -12,7 +12,7 @@ import {
 import { doctorsPageStyles } from "../assets/dummyStyles";
 
 const DoctorsPage = ({ apiBase }) => {
-  const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 
   const [allDoctors, setAllDoctors] = useState([]);
   const [loading, setLoading] = useState(true);

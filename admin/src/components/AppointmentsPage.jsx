@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from "react";
 import { Search, Calendar, BadgeIndianRupee } from "lucide-react";
 import { pageStyles, statusClasses, keyframesStyles } from "../assets/dummyStyles.js";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 
 function formatDateISO(iso) {
   try {

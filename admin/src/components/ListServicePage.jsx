@@ -15,7 +15,7 @@ import { serviceListStyles as s } from "../assets/dummyStyles.js";
 import { useAuth } from "@clerk/clerk-react";
 
 export default function ListServicePage({ apiBase }) {
-  const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const API_BASE = "https://medicare-backend-tlw3.onrender.com";
   const { getToken } = useAuth();
 
   const [services, setServices] = useState([]);

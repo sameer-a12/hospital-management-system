@@ -251,7 +251,7 @@ export default function DoctorDetailPage() {
 
       if (form.imageFile) fd.append("image", form.imageFile);
 
-      const API_BASE = import.meta.env.VITE_API_BASE;
+      const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 
       const token = await getToken();
 

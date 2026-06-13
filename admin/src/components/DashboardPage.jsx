@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { dashboardStyles as s } from "../assets/dummyStyles.js";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = "https://medicare-backend-tlw3.onrender.com";
 
 const PATIENT_COUNT_API = `${API_BASE}/api/appointments/paitents/count`;
 
