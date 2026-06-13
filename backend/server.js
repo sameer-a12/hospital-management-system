@@ -5,8 +5,8 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 const allowedOrigins = [
-  "http://localhost:5173", 
-  "http://localhost:5174",
+  "https://medicare-frontend-o4li.onrender.com", 
+  "https://medicare-admin-4h22.onrender.com",
 ];
 
 app.use(
