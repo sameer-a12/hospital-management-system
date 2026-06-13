@@ -8,6 +8,7 @@ import {
   EyeClosed,
 } from "lucide-react";
 import { doctorListStyles } from "../assets/dummyStyles.js";
+import { useAuth } from "@clerk/clerk-react";
 
 function formatDateISO(iso) {
   if (!iso || typeof iso !== "string") return iso;
@@ -88,6 +89,7 @@ function getSortedScheduleDates(scheduleLike) {
 
 export default function AnimatedDoctorListResponsive({ apiBase }) {
   const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const { getToken } = useAuth();
 
   const [doctors, setDoctors] = useState([]);
   const [expanded, setExpanded] = useState(null);
@@ -186,8 +188,13 @@ export default function AnimatedDoctorListResponsive({ apiBase }) {
     if (!ok) return;
 
     try {
+      const token = await getToken();
       const res = await fetch(`${API_BASE}/api/doctors/${id}`, {
         method: "DELETE",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
       });
       const body = await res.json().catch(() => null);
       if (!res.ok) {

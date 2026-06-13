@@ -12,8 +12,11 @@ import {
 } from "lucide-react";
 import { serviceListStyles as s } from "../assets/dummyStyles.js";
 
+import { useAuth } from "@clerk/clerk-react";
+
 export default function ListServicePage({ apiBase }) {
   const API_BASE = apiBase || import.meta.env.VITE_API_BASE;
+  const { getToken } = useAuth();
 
   const [services, setServices] = useState([]);
   const [openDetails, setOpenDetails] = useState({});
@@ -557,8 +560,12 @@ function sortSlotsForDisplay(slots = []) {
     if (!window.confirm("Are you sure you want to remove this service?"))
       return;
     try {
+      const token = await getToken();
       const res = await fetch(`${API_BASE}/api/services/${id}`, {
         method: "DELETE",
+        headers: {         
+          "Authorization": `Bearer ${token}`,
+        },
       });
       const body = await res.json().catch(() => null);
       if (!res.ok) {
